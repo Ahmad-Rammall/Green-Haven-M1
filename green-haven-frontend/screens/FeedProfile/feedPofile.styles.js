@@ -1,0 +1,73 @@
+import { StyleSheet } from "react-native";
+import { COLORS, SIZES } from "../../assets/constants";
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: COLORS.offwhite,
+    },
+    wrapper:{
+        margin: SIZES.small,
+    },
+    topContainer:{
+        flexDirection: "row",
+        justifyContent:"space-evenly",
+        alignItems: "center",
+        marginBottom: 20
+    },
+    image:{
+        width: 100,
+        height: 100,
+        resizeMode: "cover",
+        borderRadius: 1000
+    },
+    buttons:{
+        flexDirection: "row",
+        gap: 10,
+    },
+    userName:{
+        alignSelf: "center",
+        marginBottom: 5,
+        fontFamily: "bold",
+        fontSize: SIZES.medium
+    },
+    btn:{
+        padding: 5,
+        borderRadius: 10,
+        alignItems: "center"
+    },
+    followBtn:(color) => ({
+        backgroundColor: color,
+        width: 90,
+    }),
+    followTxt:{
+        fontFamily:"bold",
+        color: COLORS.offwhite
+    },
+    messageBtn:{
+        backgroundColor: COLORS.primary,
+        width: 40,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    bottomContainer:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        marginBottom: 20,
+        alignItems: "center"
+    },
+    bottomElement:{
+        alignItems: "center"
+    },
+    elementNumber:{
+        fontFamily: "bold"
+    },
+    elementName:{
+        fontFamily: "light",
+        color: COLORS.gray,
+        fontSize: 12
+    }
+
+});
+
+export default styles
