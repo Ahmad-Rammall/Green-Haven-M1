@@ -1,9 +1,10 @@
 const Post = require("../models/post.model");
 const mongoose = require("mongoose");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const addPost = async (req, res) => {
   const description = req.body.description;
-  const image = req.file ? req.file.filename : "";
+  const image = req.file ? req.file.cloudinaryUrl : defaultImagesUrl.post;
 
   try {
     const post = new Post({ user: req.user, description, image });
@@ -31,7 +32,7 @@ const updatePost = async (req, res) => {
     const updatedPost = await Post.findOneAndUpdate(
       { _id: post._id },
       { description, image },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     return res.status(200).json({ message: "Post Updated", post: updatedPost });
   } catch (error) {
@@ -68,7 +69,7 @@ const likePost = async (req, res) => {
 
     // Test if user liked the post
     const postLiked = post.likes.find((userElement) =>
-      userElement._id.equals(user._id)
+      userElement._id.equals(user._id),
     );
 
     if (!postLiked) {
@@ -76,7 +77,7 @@ const likePost = async (req, res) => {
       res.status(200).json("You liked this post");
     } else if (postLiked) {
       post.likes = post.likes.filter(
-        (like) => String(like._id) !== String(user._id)
+        (like) => String(like._id) !== String(user._id),
       );
       await post.save();
       res.status(200).json("You disliked this post");
@@ -91,57 +92,64 @@ const likePost = async (req, res) => {
 const getUserPosts = async (req, res) => {
   const userId = req.params.userId;
   try {
-    const posts = await Post.find({ user: userId }).populate({
-      path: "user",
-      select: ["-cart", "-garden", "-password"],
-    }).populate({
-      path: "comments.user",
-      select: ["name", "profile_picture"],
-    });
+    const posts = await Post.find({ user: userId })
+      .populate({
+        path: "user",
+        select: ["-cart", "-garden", "-password"],
+      })
+      .populate({
+        path: "comments.user",
+        select: ["name", "profile_picture"],
+      });
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(500).send(error);
   }
 };
 
-const getOwnPosts = async (req,res) => {
-  try{
-    const ownPosts = await Post.find({ user: req.user._id }).populate({
-      path: "user",
-      select: ["-cart", "-garden", "-password"],
-    }).populate({
-      path: "comments.user",
-      select: ["name", "profile_picture"],
-    });
+const getOwnPosts = async (req, res) => {
+  try {
+    const ownPosts = await Post.find({ user: req.user._id })
+      .populate({
+        path: "user",
+        select: ["-cart", "-garden", "-password"],
+      })
+      .populate({
+        path: "comments.user",
+        select: ["name", "profile_picture"],
+      });
 
     return ownPosts;
-
-  }catch(error){
+  } catch (error) {
     return res.status(500).send(error);
   }
-}
+};
 
 const getFollowingPosts = async (req, res) => {
   try {
-    let allPosts =[];
-    const ownPosts = await getOwnPosts(req,res);
+    let allPosts = [];
+    const ownPosts = await getOwnPosts(req, res);
     allPosts = [...ownPosts];
     await Promise.all(
-      req.user.following.map(async(followingId) => {
-        const postArray = await Post.find({ user: followingId }).populate({
-          path: "user",
-          select: ["-cart", "-garden", "-password"],
-        }).populate({
-          path: "comments.user",
-          select: ["name", "profile_picture"],
-        });
+      req.user.following.map(async (followingId) => {
+        const postArray = await Post.find({ user: followingId })
+          .populate({
+            path: "user",
+            select: ["-cart", "-garden", "-password"],
+          })
+          .populate({
+            path: "comments.user",
+            select: ["name", "profile_picture"],
+          });
 
         postArray.forEach((post) => {
-          allPosts.push(post)
-        })
-      })
+          allPosts.push(post);
+        });
+      }),
     );
-    const sorted = allPosts.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const sorted = allPosts
+      .slice()
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return res.status(200).json(sorted);
   } catch (error) {
@@ -176,7 +184,7 @@ const updateComment = async (req, res) => {
   }
 
   const comment = post.comments.find(
-    (comment) => comment._id.toString() === commentId
+    (comment) => comment._id.toString() === commentId,
   );
 
   if (!comment) {
@@ -207,7 +215,7 @@ const deleteComment = async (req, res) => {
   }
 
   const comment = post.comments.find(
-    (comment) => comment._id.toString() === commentId
+    (comment) => comment._id.toString() === commentId,
   );
 
   if (!comment) {
@@ -239,7 +247,7 @@ const likeComment = async (req, res) => {
     }
 
     const comment = post.comments.find(
-      (comment) => comment._id.toString() === commentId
+      (comment) => comment._id.toString() === commentId,
     );
 
     if (!comment) {
@@ -248,7 +256,7 @@ const likeComment = async (req, res) => {
 
     // Test if user liked the comment
     const commentLiked = comment.likes.find((userElement) =>
-      userElement._id.equals(user._id)
+      userElement._id.equals(user._id),
     );
 
     if (!commentLiked) {
@@ -257,7 +265,7 @@ const likeComment = async (req, res) => {
       res.status(200).json("You liked this post");
     } else if (commentLiked) {
       comment.likes = comment.likes.filter(
-        (like) => String(like._id) !== String(user._id)
+        (like) => String(like._id) !== String(user._id),
       );
       await post.save();
       res.status(200).json("You disliked this post");

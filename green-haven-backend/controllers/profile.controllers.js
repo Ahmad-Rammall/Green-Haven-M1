@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const getUser = async (req, res) => {
   try {
@@ -17,13 +18,16 @@ const getUser = async (req, res) => {
 const updateProfile = async (req, res) => {
   // User cannot change his email / role
   const { name, bio, phone_number, location } = req.body;
-  const profile_picture = req.file?.filename;
+  const profile_picture = req.file
+    ? req.file.cloudinaryUrl
+    : defaultImagesUrl.profile;
+
   try {
     // Update User
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.user._id },
       { name, bio, phone_number, profile_picture, location },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     return res.status(200).json({ message: "User Updated", updatedUser });
   } catch (error) {
@@ -33,10 +37,10 @@ const updateProfile = async (req, res) => {
 
 const updatePassword = async (req, res) => {
   try {
-    const {oldPassword, newPassword} = req.body;
+    const { oldPassword, newPassword } = req.body;
 
     const user = await User.findOne({ _id: req.user._id });
-  
+
     if (await bcrypt.compare(oldPassword, user.password)) {
       const salt = await bcrypt.genSalt(10);
 
@@ -64,7 +68,7 @@ const followUser = async (req, res) => {
       if (userToFollow && currentUser) {
         // Test if currentUser is already following the otherUser
         const following = currentUser.following.find(
-          (user) => user._id.toString() === String(otherUserId)
+          (user) => user._id.toString() === String(otherUserId),
         );
 
         if (!following) {
@@ -100,12 +104,12 @@ const unfollowUser = async (req, res) => {
       if (userToUnfollow && currentUser) {
         // Get All Following List Without the other user
         currentUser.following = currentUser.following.filter(
-          (user) => user._id.toString() !== String(otherUserId)
+          (user) => user._id.toString() !== String(otherUserId),
         );
 
         // Get All Followers List Without the current User
         userToUnfollow.followers = userToUnfollow.followers.filter(
-          (user) => user._id.toString() !== String(currentUser._id)
+          (user) => user._id.toString() !== String(currentUser._id),
         );
 
         await currentUser.save();

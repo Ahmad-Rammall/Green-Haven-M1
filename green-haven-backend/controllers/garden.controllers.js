@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const getAllUserPlants = async (req, res) => {
   return res.status(200).json({ garden: req.user.garden });
@@ -10,8 +11,7 @@ const addPlant = async (req, res) => {
     return res.status(403).json("Unauthorized");
   }
   const { plant_name, plant_description } = req.body;
-  const plant_picture = req.file ? req.file.filename: "noPlantImage.jpg";
-
+  const plant_picture = req.file ? req.file.cloudinaryUrl : defaultImagesUrl.plant;
   // All fields should exist
   if (
     !plant_name ||

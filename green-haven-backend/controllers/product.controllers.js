@@ -1,5 +1,6 @@
 const Product = require("../models/product.model");
 const User = require("../models/user.model");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const getOneProduct = async (req, res) => {
   const productId = req.params.id;
@@ -30,7 +31,7 @@ const getAllSellerProducts = async (req, res) => {
 
 const addProduct = async (req, res) => {
   const { name, description, price } = req.body;
-  const image = req.file ? req.file.filename : "noProductImage.jpg"
+  const image = req.file ? req.file.cloudinaryUrl : defaultImagesUrl.product;
 
   try {
     const product = new Product({
@@ -50,8 +51,7 @@ const addProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { productId, name, description, price } = req.body;
-  const image = req.file?.filename ;
-
+  const image = req.file ? req.file.cloudinaryUrl : "";
   if (!productId) {
     return res.status(400).json({ message: "productId required" });
   }
@@ -68,7 +68,7 @@ const updateProduct = async (req, res) => {
     const updated_product = await Product.findOneAndUpdate(
       { _id: productId },
       { name, description, image, price },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     return res
       .status(200)
@@ -91,9 +91,7 @@ const deleteProduct = async (req, res) => {
 
     // Find the product and update it
     await Product.findOneAndDelete({ _id: productId });
-    return res
-      .status(200)
-      .json({ message: "Product Deleted", product });
+    return res.status(200).json({ message: "Product Deleted", product });
   } catch (error) {
     return res.status(500).send(error);
   }
