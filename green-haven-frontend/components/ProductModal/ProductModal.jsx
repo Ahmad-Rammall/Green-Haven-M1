@@ -17,7 +17,8 @@ const ProductModal = ({ isVisible, onClose, refresh, details, update=false }) =>
   console.log(details);
 
   // if plant has no image
-  const noProductImage = process.env.PUBLIC_FOLDER + "products-pics/noProductImage.jpg";
+  // const noProductImage = process.env.PUBLIC_FOLDER + "products-pics/noProductImage.jpg";
+  const noProductImage = "https://res.cloudinary.com/dc0sbbiaj/image/upload/v1783344057/product-default-list-350_cya9jw.jpg";
 
   const validationSchema = Yup.object({
     description: Yup.string()
