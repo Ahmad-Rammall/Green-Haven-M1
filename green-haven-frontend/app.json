@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "green-haven-frontend",
+    "name": "Green Haven",
     "slug": "green-haven-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "icon": "./assets/images/logo.png",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
@@ -17,7 +18,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "./assets/images/logo.png"
       },
       "package": "com.anonymous.greenhavenfrontend",
       "googleServicesFile": "./google-services.json"

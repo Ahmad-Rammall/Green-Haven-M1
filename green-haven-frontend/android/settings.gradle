@@ -1,4 +1,4 @@
-rootProject.name = 'green-haven-frontend'
+rootProject.name = 'Green Haven'
 
 dependencyResolutionManagement {
   versionCatalogs {
