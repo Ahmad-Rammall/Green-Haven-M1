@@ -30,14 +30,12 @@ const Post = ({ post, refreshPage, handleOpenModal, setCommentsObject }) => {
     setIsLiked(post.likes.some((like) => like._id === currentUser._id));
   }, [post.likes]);
 
-  const postImage = process.env.PUBLIC_FOLDER + "posts-pics/" + post.image;
+  const postImage = post.image;
   let userProfilePic;
   if (!post.user.profile_picture) {
     userProfilePic = "../../assets/noUserImage.jpg";
-    console.log("noooooooooo")
   } else {
-    userProfilePic =
-      process.env.PUBLIC_FOLDER + "profile-pics/" + post.user.profile_picture;
+    userProfilePic = post.user.profile_picture;
   }
 
   const handleLike = async () => {

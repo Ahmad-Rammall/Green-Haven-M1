@@ -18,10 +18,7 @@ import Label from "src/components/label";
 // ----------------------------------------------------------------------
 
 export default function ShopProductCard({ product, refreshPage }) {
-  const image =
-    import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER +
-    "/products-pics/" +
-    product.image;
+  const image = product.image;
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const handleOpenModal = () => {

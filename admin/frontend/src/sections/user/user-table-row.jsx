@@ -31,8 +31,7 @@ export default function UserTableRow({
   user,
   refreshPage,
 }) {
-  const profile_picture =
-    import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER + "/profile-pics/" + avatarUrl;
+  const profile_picture = avatarUrl;
   const [open, setOpen] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);

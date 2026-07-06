@@ -65,7 +65,7 @@ const CartItem = ({ product, setRefresh, setTotalAmount, updateQuantity}) => {
         <Image
           style={styles.image}
           source={{
-            uri: process.env.PUBLIC_FOLDER + "products-pics/" + product.product.image,
+            uri: product.product.image,
           }}
         />
       </View>

@@ -33,8 +33,7 @@ export default function Nav({ openNav, onCloseNav }) {
   const currentUser = useSelector((state) => state.User);
 
   const publicFolder = import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER;
-  const profile_picture =
-    publicFolder + "/profile-pics/" + currentUser.profile_picture;
+  const profile_picture = currentUser.profile_picture;
 
   useEffect(() => {
     if (openNav) {

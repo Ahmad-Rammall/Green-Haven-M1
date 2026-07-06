@@ -13,10 +13,8 @@ import { StreamChat } from "stream-chat";
 
 const Profile = ({ navigation }) => {
   const currentUser = useSelector((state) => state.User);
-  const userProfilePicture = `${process.env.PUBLIC_FOLDER}profile-pics/${currentUser.profilePicture}`;
-  console.log(userProfilePicture)
+  const userProfilePicture = `${currentUser.profilePicture}`;
   const client = StreamChat.getInstance(process.env.STREAM_KEY);
-  console.log(userProfilePicture);
   const handleLogout = async () => {
     local("token", "");
     navigation.replace('Login');

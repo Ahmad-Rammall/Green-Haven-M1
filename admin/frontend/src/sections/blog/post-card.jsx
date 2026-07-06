@@ -29,8 +29,8 @@ export default function PostCard({ post, refreshPage }) {
   const { description, image, likes, comments, user, createdAt } = post;
   const publicFolder = import.meta.env.VITE_REACT_APP_PUBLIC_FOLDER;
 
-  const user_profile = publicFolder + "/profile-pics/" + user.profile_picture;
-  const post_image = publicFolder + "/posts-pics/" + image;
+  const user_profile = user.profile_picture;
+  const post_image = image;
 
   const handleOpenModal = () => {
     setDeleteModalOpen(true);

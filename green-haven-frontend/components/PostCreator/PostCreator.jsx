@@ -36,8 +36,7 @@ const PostCreator = ({ refresh }) => {
     }
   };
 
-  const profilePic =
-  process.env.PUBLIC_FOLDER + "profile-pics/" + currentUser.profilePicture;
+  const profilePic = currentUser.profilePicture;
 
   return (
     <View style={styles.share}>

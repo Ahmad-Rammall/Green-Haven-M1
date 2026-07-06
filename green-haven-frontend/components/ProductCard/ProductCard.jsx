@@ -9,7 +9,7 @@ const ProductCard = ({ product, refresh }) => {
   const navigation = useNavigation();
   const { user, image, name, description, price } = product;
   const productId = product._id;
-  const imageUrl = process.env.PUBLIC_FOLDER + "products-pics/" + image;
+  const imageUrl = image;
   const gotoProductDetails = () => {
     navigation.navigate("Product Details", {
       imageUrl,

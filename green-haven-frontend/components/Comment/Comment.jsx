@@ -16,7 +16,7 @@ const Comment = ({ comment, postId, refreshPage }) => {
     comment.likes.length
   );
 
-  const image = process.env.PUBLIC_FOLDER + "profile-pics/" + comment.user.profile_picture;
+  const image = comment.user.profile_picture;
 
   const handleLike = async () => {
     setIsLiked(!isLiked);

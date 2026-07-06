@@ -55,7 +55,7 @@ const screenOptions = ({ route, navigation }) => ({
 const FeedStackNavigator = ({ navigation }) => {
   const currentUser = useSelector((state) => state.User);
   const dispatch = useDispatch();
-  const userProfilePicture = `${process.env.PUBLIC_FOLDER}profile-pics/${currentUser.profilePicture}`;
+  const userProfilePicture = `${currentUser.profilePicture}`;
   const publicChannelImg = `${process.env.PUBLIC_FOLDER}public-channel.jpg`;
 
   dispatch(
