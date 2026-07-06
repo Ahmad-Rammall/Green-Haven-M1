@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const productSchema = new mongoose.Schema(
   {
@@ -14,7 +15,7 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default:"noProductImage.jpg"
+      default:defaultImagesUrl.product
     },
     name: {
       type: String,

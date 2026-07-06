@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const cartItemSchema = new mongoose.Schema({
   product: {
@@ -46,7 +47,7 @@ const userSchema = new mongoose.Schema(
     },
     profile_picture: {
       type: String,
-      default: "noUserImage.png",
+      default: defaultImagesUrl.profile,
     },
     location: {
       type: String,

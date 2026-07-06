@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const defaultImagesUrl = require("../defaultImagesUrl");
 
 const postSchema = new mongoose.Schema(
   {
@@ -14,7 +15,7 @@ const postSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default:"noPlantImage.jpg"
+      default: defaultImagesUrl.post
     },
     likes: [
       {
